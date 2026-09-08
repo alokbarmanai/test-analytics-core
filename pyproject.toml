@@ -1,0 +1,18 @@
+[tool.ruff]
+# Target Python version 3.12 (or match your local version)
+target-version = "py312"
+# Enable standard lint rules (E, F) plus 'I' for auto-sorting imports
+line-length = 88
+select = ["E", "F", "I"]
+
+[tool.mypy]
+# Enforce strict static type checking rules
+python_version = "3.12"
+strict = true
+warn_return_any = true
+warn_unused_configs = true
+
+[[tool.mypy.overrides]]
+# Tell mypy where your source code lives
+module = "src.*"
+ignore_missing_imports = false

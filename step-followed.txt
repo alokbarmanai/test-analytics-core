@@ -1,0 +1,15 @@
+1. Repository Setup: Create a new local directory named test-analytics-core. Initialize it as a Git repository and publish it as a private or public repository on GitHub.
+2. Environment Isolation: Create a Python virtual environment inside that folder (conventionally named .venv). Activate it so your dependencies don't mix with your global system tools.
+    powershell commands: 
+    creates a .venv folder: python -m venv .venv
+    .venv folder activation: .venv\Scripts\Activate.ps1
+3. Project Layout: Create a clean directory structure. You must have a src/ directory for your application code and a tests/ directory for your future automated tests.
+4. Tool Configuration: Create a configuration file (pyproject.toml) and install two modern Python code-quality tools using pip:
+    Ruff: For incredibly fast code formatting and linting.
+    Mypy: To enforce strict Python static type checking.
+    running the install command, run this to save them:
+    bash: pip install ruff mypy
+    pip freeze > requirements.txt
+To Be Confirm about Setup:
+In your terminal, run the following command to test Ruff: ruff check src/
+Then, run the command to test Mypy: mypy src/
