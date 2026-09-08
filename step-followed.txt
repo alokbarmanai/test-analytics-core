@@ -13,3 +13,24 @@
 To Be Confirm about Setup:
 In your terminal, run the following command to test Ruff: ruff check src/
 Then, run the command to test Mypy: mypy src/
+5. Create Mock Data: Inside your project, create a new folder named data/. Inside it, create a file named raw_test_data.json. Copy and paste this sample payload into it:
+6. Write the Parser Function: Inside your src/ directory, create a new file named parser.py.
+7. Write a Python function called load_test_results that takes a file path as an argument, opens your JSON file using Python's native json library, and returns only the list of tests dictionaries.
+#Assignment 3: Calculate Pass Rates & Detect Flakiness
+1. Update Your Mock Data
+2. Create the Analytics Function: In your src/parser.py file, write a second function called calculate_metrics. This function should accept your list of test dictionaries as an input argument:
+3. Calculate Core Statistics: Inside this function
+4. Identify Flaky Candidates
+5. Return an Analytics Summary
+# Assignment 4: Robust Validation, Exceptions, & Logging
+1. Create Custom Exceptions:
+2. Add Strict Defensive Validation Logic:
+3. Implement Structured Logging:
+#Day 5 Assignment: Write Your First Automated Unit Tests!
+1. Create a new file named test_parser.py inside your empty tests/ directory.
+2. Write a test function named test_calculate_metrics_success(). Inside it:
+    Create a hardcoded list of test dictionaries (your mock data).
+    Pass that list directly into your calculate_metrics function.
+    Use assert statements to verify that the returned dictionary contains the exact values you expect (e.g., assert result["total"] == 5).
+3. Write a second test function named test_load_test_results_invalid_schema(). Inside it, you will test that your custom exception works:
+

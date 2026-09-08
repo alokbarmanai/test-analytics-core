@@ -1,0 +1,2 @@
+class InvalidReportSchemaError(Exception):
+    pass

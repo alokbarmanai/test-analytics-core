@@ -1,0 +1,36 @@
+{
+    "project": "E-Commerce Core API",
+    "environment": "staging",
+    "tests": [
+        {
+            "id": "T001",
+            "name": "test_login_success",
+            "status": "passed",
+            "retries": 0
+        },
+        {
+            "id": "T002",
+            "name": "test_checkout_timeout",
+            "status": "failed",
+            "retries": 2
+        },
+        {
+            "id": "T003",
+            "name": "test_payment_gateway",
+            "status": "passed",
+            "retries": 1
+        },
+        {
+            "id": "T004",
+            "name": "test_order_history",
+            "status": "passed",
+            "retries": 0
+        },
+        {
+            "id": "T005",
+            "name": "test_cart_update",
+            "status": "failed",
+            "retries": 0
+        }
+    ]
+}
