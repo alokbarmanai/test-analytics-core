@@ -34,3 +34,137 @@ Then, run the command to test Mypy: mypy src/
     Use assert statements to verify that the returned dictionary contains the exact values you expect (e.g., assert result["total"] == 5).
 3. Write a second test function named test_load_test_results_invalid_schema(). Inside it, you will test that your custom exception works:
 
+#FastAPI Web Development. Assignment 6: Building Your First FastAPI Endpoint
+1. Install FastAPI & Uvicorn: You need the framework itself (fastapi) and a lightning-fast ASGI web server to run it (uvicorn). Install them inside your virtual environment and lock them down in your requirements.txt.
+pip install fastapi uvicorn
+pip freeze > requirements.txt
+2. Initialize the Web App: Inside your src/ folder, create a brand-new file named main.py. This will be the entry point for your entire backend application.
+Launching the Uvicorn Web Server: uvicorn src.main:app --reload
+Testing Your Server: http://localhost:8000/health
+
+3. Create a Router: Instantiate a new FastAPI application inside src/main.py.
+Testing Your Server: http://localhost:8000/analytics
+4. Expose a Health Check Endpoint: Write a basic asynchronous endpoint mapping to the root path (/ or /health). When a client visits this URL via an HTTP GET request, it should return a dictionary confirming the API is operational (e.g., {"status": "healthy", "version": "1.0.0"}).
+
+5. Launch the Server: Boot up your web server using the uvicorn command in your terminal so it begins listening for requests locally.
+#How to test your new endpoint
+Make sure your Uvicorn server is still running.
+(If you closed it, run uvicorn src.main:app --reload in your terminal).
+Step 1: Run this URL in any browser: http://127.0.0.1:8000/docs
+Step 2: Locate and Expand the /analytics Endpoint
+Step 3: Look at the top right of that expanded green section and click the "Try it out" button. This unlocks the text box.
+Step 4: Clear out any placeholder text inside the Request body box and paste this array of test data:
+[
+  {"id": "T001", "name": "test_login_success", "status": "passed", "retries": 0},
+  {"id": "T002", "name": "test_checkout_timeout", "status": "failed", "retries": 2},
+  {"id": "T003", "name": "test_payment_gateway", "status": "passed", "retries": 1}
+]
+Step 5: Click the large blue "Execute" button located directly beneath the data box.
+Assignment 8: Designing Database Tables & Models
+Step 1: Install SQLAlchemy
+pip install "sqlalchemy>=2.0.0"
+pip freeze > requirements.txt
+Step 2: Create the Database Connection Layer
+Your Turn!
+Install the sqlalchemy package and update your requirements.txt.
+Write the connection setup inside src/database.py.
+Run mypy src/ to make sure your types are clean!
+Assignment 9: Generating the Database & Managing Transactions
+1. Trigger Table Creation on Server Startup:
+2. Build a Session Dependency:
+Once it says "Success", launch your web server using your Uvicorn command:
+uvicorn src.main:app --reload
+http://127.0.0.1:8000/health
+http://127.0.0.1:8000/docs
+
+=====================================
+Week 2: FastAPI Web Development Setup
+1. Update and Install Python Development Tools
+Ubuntu comes with Python pre-installed, but you need the virtual environment manager (venv) and the package installer (pip):
+sudo apt update && sudo apt install -y python3-pip python3-venv
+
+2. Create Your Project Workspace
+Create a dedicated folder for your FastAPI project assignments:
+mkdir ~/fastapi-app && cd ~/fastapi-app
+
+3. Set Up a Python Virtual Environment
+Initialize an isolated virtual environment to prevent any ModuleNotFoundError or package conflicts down the road:
+python3 -m venv .venv
+source .venv/bin/activate
+
+4. Install FastAPI and Uvicorn
+Install the framework alongside the ASGI application server required to launch it:
+pip install fastapi uvicorn
+
+#how to run a new ubuntu window?
+Method 1: Inside VS Code (Recommended for Development)Look at the top-right corner of your current VS Code terminal panel.Click the small downward arrow next to the + icon.Select Ubuntu from the list. This opens a brand-new, clean Linux tab side-by-side with your running server.Method 2: As a Separate Standalone WindowPress the Windows Key on your keyboard.Type Ubuntu into the search bar.Press Enter or click the app icon to open a standalone terminal window.
+#The Correct JSON Payload Data
+[
+  { "name": "test_login_success", "status": "passed", "retries": 0 },
+  { "name": "test_fetch_profile", "status": "passed", "retries": 0 },
+  { "name": "test_database_connection", "status": "passed", "retries": 2 },
+  { "name": "test_payment_gateway", "status": "passed", "retries": 0 },
+  { "name": "test_analytics_payload", "status": "failed", "retries": 0 }
+]
+To Open an Ubuntu terminal:
+Step 1: Navigate Using Linux Paths
+cd "/mnt/d/Development Projects/source/ai projects/alokbarmanai/test-analytics-core"
+Step 2: Activate the Virtual Environment
+source ~/fastapi-app/.venv/bin/activate
+Step 3: Install Testing Dependencies
+pip install pytest httpx
+Step 4: Create the Test Structure
+mkdir -p tests && touch tests/test_main.py
+
+# 1. Activate the working virtual environment
+source ~/fastapi-app/.venv/bin/activate
+
+# 2. Run the test suite again
+# 1. Activate the working virtual environment
+source ~/fastapi-app/.venv/bin/activate
+pytest tests/
+
+#Single test run option
+Method 1: Target by Test Function Name (Easiest)
+pytest -k test_delete_individual_analytics_run
+Method 2: Target by File and Node Path (Most Precise)
+pytest tests/test_main.py::test_delete_individual_analytics_run
+
+Week 3: Containerization with Docker Desktop and WSL.
+Step 1: Create a Dockerfile
+Step 4: Run Your Containerized ApplicationOnce the build completes successfully, turn off your manual background server 
+if it is still running (CTRL + C in your first terminal window).
+Then, spin up your new Docker container:bashdocker run -d -p 8000:8000 --name analytics-service test-analytics
+Use code with caution.Note: 
+The -d flag runs the container silently in the background, and -p 8000:8000 maps your Windows desktop port 8000 directly to the container's internal port 8000.
+
+##Stop application:
+1. The Command Line Way (WSL Terminal):
+Run this command in your terminal to stop the container from running:
+docker stop analytics-service
+Step 1: Stop and Remove the Current Container
+or docker stop analytics-service && docker rm analytics-service
+Step 2: Run the Container with the Volume Mount Link
+docker run -d -p 8000:8000 --name analytics-service -v "/mnt/d/Development Projects/source/ai projects/alokbarmanai/test-analytics-core:/app" test-analytics
+Step 3: Run the Tests Inside the Container Again
+docker exec -it analytics-service pytest tests/
+
+2. The Visual Way (Docker Desktop):
+Open your Docker Desktop window.
+Click on the Containers tab in the left sidebar.
+Find analytics-service in the list, hover over it, and click the square Square Stop Button 
+(or click the Trash can icon if you want to delete the instance completely).
+
+##Start application in Docar:
+How to Bring It Back Up Again:
+1. If you just stopped it: Run the start command to bring the existing container instance back online instantly:
+docker start analytics-service
+2. If you deleted the container container instance: Run your original launch configuration to build a fresh active instance from your image:
+docker run -d -p 8000:8000 --name analytics-service test-analytics
+RUN TEST IN Docker:
+docker exec -it analytics-service pytest tests/
+
+
+
+
+

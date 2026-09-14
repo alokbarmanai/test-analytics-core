@@ -2,7 +2,7 @@ import json
 import logging
 from typing import Any, Dict, List, cast
 
-from src.exceptions import InvalidReportSchemaError
+from .exceptions import InvalidReportSchemaError
 
 logging.basicConfig(
     level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s"
