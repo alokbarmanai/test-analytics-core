@@ -1,0 +1,2 @@
+1. Run this command in your active WSL Ubuntu terminal window (the one with the (.venv) prefix active):
+pip install tiktoken

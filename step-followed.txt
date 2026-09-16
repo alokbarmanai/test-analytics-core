@@ -164,6 +164,24 @@ docker run -d -p 8000:8000 --name analytics-service test-analytics
 RUN TEST IN Docker:
 docker exec -it analytics-service pytest tests/
 
+#Step-by-Step Fix: Rebuild the Virtual Environment
+1. Move back to the project root directory
+cd "../test-analytics-core"
+2. Re-create the environment configurations
+python -m venv .venv
+3. Refresh your terminal session
+Kill Terminal and Open a brand-new terminal window
+=================================================
+1. Deactivate the broken environment
+deactivate
+2. Delete the broken folder
+Remove-Item -Recurse -Force .venv
+3. Recreate it cleanly
+python -m venv .venv
+4. Activate it
+.\.venv\Scripts\Activate.ps1
+
+##What is the uses of wsl terminal
 
 
 
