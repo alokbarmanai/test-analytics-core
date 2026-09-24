@@ -1,0 +1,29 @@
+Module 4.1: Structural Data Processing with pandas!
+Step 1: Install the Data Processing Tools
+python -m pip install pandas
+Step 2: The Production Code
+Create a file named src/data_processor.py inside your workspace. 
+This module converts raw execution arrays into data matrices and extracts core metadata metrics:
+Step 3: Your Assignment Task
+Create a brand new verification test file named tests/test_dataframe_basics.py to assert that the ingestion matrix structures itself perfectly at the structural boundaries.
+Remember our Java vs. Python rule: We do not need a class wrapper here! Just write your fixture and test functions directly at the root level of the file:
+Module 4.2: Data Cleansing & Transformation
+Data Cleansing involves:Filtering out noise: Isolating rows that match specific operational criteria.
+Handling missing values: Dropping corrupted rows or filling empty None spaces with fallback metrics.
+Data Type Correction: Explicitly casting mixed object columns into strict predictable types (like forcing numbers out of strings).
+#The Telemetry Cleansing Pipeline
+Step 1: The Production Code
+Open your src/data_processor.py file and add this transformation function at the bottom:
+def clean_and_sanitize_telemetry(df: pd.DataFrame) -> pd.DataFrame:
+Step 2: Your Assignment TaskOpen tests/test_dataframe_basics.py and add a new test function to verify this cleansing logic. 
+We will intentionally build a dirty data payload containing missing elements:
+def test_telemetry_cleansing_pipeline():
+#Save your modifications across both files, and execute your updated test suite in the terminal window:
+=>python -m pytest tests/test_dataframe_basics.py
+Module 4.3: Aggregation & Metrics Compiling
+Assignment: Multi-Environment Run Aggregator
+Step 1: The Production Code
+Open your src/data_processor.py file and add this aggregation logic to the bottom of the file:
+Step 2: Your Assignment TaskOpen tests/test_dataframe_basics.py and append this test function to verify that your matrix calculation groupings compute perfectly at the boundary marks:
+Save your modifications across your files, and execute your complete completed Module 4 test suite command in your powershell terminal window:
+=>python -m pytest tests/test_dataframe_basics.py

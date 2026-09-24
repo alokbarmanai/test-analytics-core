@@ -1,2 +1,19 @@
 python -m pytest -v
 mypy src/
+1. Deactivate the broken environment
+deactivate
+2. Delete the broken folder
+Remove-Item -Recurse -Force .venv
+3. Recreate it cleanly
+python -m venv .venv
+4. Activate it
+.\.venv\Scripts\Activate.ps1
+pytest tests/test_main.py::test_delete_individual_analytics_run
+pytest tests/test_schema_verification.py
+Go ahead and run the full suite across your entire workspace to confirm everything integrates beautifully:
+powershell
+pytest
+python -m pytest tests/test_schema_verification.py
+python -m pytest
+###The Fix: Install the Packages TogetherRun this single command in your PowerShell terminal to install both pytest and pydantic directly into your active .venv:
+python -m pip install pytest pydantic

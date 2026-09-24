@@ -1,0 +1,51 @@
+#Core Concepts to Understand
+1. The Interception Ring: Mocking tools intercept outbound calls at Python’s socket layer.
+Instead of the request escaping onto the open internet, the tool catches it and routes back a pre-configured static payload you specify.
+2. Deterministic Status Testing: You can simulate any HTTP edge case on command—forcing your system to handle a 200 OK, a 404 Not Found, 
+or a 500 Internal Server Error instantly without needing to actually break a real external server.
+Assignment: The Third-Party Metric Sync Engine
+Step 1: Install the HTTP Mocking Tools
+Run this installation step in your active PowerShell terminal to add the external request module and mocking tools directly into your localized environment path:
+python -m pip install requests responses
+Step 2: The Production CodeCreate a new file named src/http_client.py in your workspace workspace directory. This module handles outbound telemetry syncing operations:
+Step 3: Your Assignment TaskCreate an integration verification suite named tests/test_http_mocking.py to assert that your client captures network outcomes smoothly. 
+Notice how we use the @responses.activate decorator to turn on the interception wall for that specific test block:
+Apply these implementations in your VS Code workspace. When you're ready, run your new mock configuration suite:
+=>python -m pytest tests/test_http_mocking.py
+
+===========================================================
+Let's open up the database layer and dive into Relational Databases & SQL (Schema Design & ORM Setup).
+Core Concepts to Understand
+The Schema Model: A standard Python class inheriting from a base database declaration. Every attribute you define on this class becomes a structural column inside your relational table.
+The Database Engine: The underlying connectivity pipeline. For lightweight projects and automation frameworks, we use SQLite, an in-process, file-based SQL database engine that saves your whole database directly as a single local file (e.g., test_analytics.db).
+The Session Context: The transaction wrapper. A database session acts like an open notepad. You can add multiple rows or update fields, but nothing becomes permanent until you issue a .commit() command.
+
+Assignment: Modeling Infrastructure Metrics
+Let's design and bootstrap a brand-new, isolated table structure to track individual software component health states.
+Step 1: Install the Core Database PackageWe already installed standard SQLAlchemy earlier to clear the test main collection error, but let's confirm it's fully locked down:
+python -m pip install sqlalchemy
+Step 2: The Production Code
+Create a new file named src/database_setup.py inside your workspace directory. This module initializes your relational engine and constructs a clean data model schema table layout:
+Step 3: Your Assignment Task
+Create a database verification test suite named tests/test_database_orm.py to assert that your schema maps columns and saves records accurately. Notice that we do not use a class wrapper here; we write standard standalone functions:
+Save these implementations across both files in your editor environment, and execute your new database test suite command in the terminal window:
+=>python -m pytest tests/test_database_orm.py
+Core Concept: How the yield Keyword Automatically Manages Teardown
+Notice how your test fixture was written:
+@pytest.fixture(scope="function")
+def db_session():
+    # Phase 1: Setup Code
+    init_db()
+    session = SessionLocal()
+    
+    yield session  # <-- The Pause Button
+    
+    # Phase 2: Teardown Code
+    session.close()
+    Base.metadata.drop_all(bind=engine)
+
+READ AGAIN-Very Important Information:
+In your 12 years of Java experience, you handled this using separate methods annotated with @BeforeMethod and @AfterMethod (TestNG/JUnit). In Python, pytest handles this with a single function using a generator wrapper (yield):
+1. The Setup: Pytest runs everything before the yield keyword first (creating tables and opening the database connection).
+2. The Execution: As soon as it hits yield session, pytest pauses execution of the fixture, hands the live session object over to your test function, and executes the test (test_persist_and_read_health_record).
+3. The Teardown: Once your test finishes (whether it passes or completely crashes), pytest automatically returns to the fixture and runs everything after the yield keyword inside the finally block, closing the connection and dropping the tables to ensure data isolation.

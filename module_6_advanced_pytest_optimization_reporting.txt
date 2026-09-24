@@ -1,0 +1,41 @@
+Step 1: Register the Custom Flag in conftest.py
+Pytest looks for a special hook named pytest_addoption to register new command-line parameters.
+Create a file named conftest.py in your root test directory and add this code:
+
+Step 2: Create a Fixture to Read the Flag Value
+Now that pytest recognizes the flag, you need a way to pass that option into your actual test functions. 
+We do this by writing a standard fixture that accesses pytest's internal request object.
+Add this fixture to the bottom of your conftest.py file:
+
+Step 3: Consume the Dynamic Configuration in a Test File
+With the fixture configured, your tests can now dynamically alter their assertions or configurations based on what you typed into the terminal.
+Create a test file named test_environment_routing.py:
+
+Step 4: Execute and Observe the Output
+Open your terminal inside the project directory and execute the tests using the configurations below to see how pytest responds.
+Scenario A: Running with defaults
+pytest -v -s tests/test_environment_routing.py
+What happens: Pytest uses the default value "testing". The test prints Routing test suite to target URL: http://127.0.0.1:8000.
+
+Scenario B: Routing to Production
+pytest -v -s tests/test_environment_routing.py --env=production
+What happens: Pytest intercepts the --env=production argument, passes "production" into the fixture, and your test dynamically switches to https://company.com.
+
+Module 6.3: Advanced Report Generation & Metadata.
+Run Tests:
+
+pytest -v -s tests/test_environment_routing.py --env=production
+
+pytest -v -s tests/test_environment_routing.py --env=production --junitxml=reports/junit-report.xml
+
+pytest -v -s tests/test_environment_routing.py --env=production --html=reports/dashboard.html --self-contained-html
+Invoke-Item reports/dashboard.html
+pytest -v -s tests/test_environment_routing.py --env=production --html=reports/dashboard.html --self-contained-html
+
+Moving to Parallel Test Execution (Sub-module 6.1)
+Step 1: Install the Parallel Execution PluginRun this installation command in your active PowerShell environment (.venv) to download the distributed test orchestration package:
+pip install pytest-xdist
+
+Step 2: Run Tests Across Multiple CPU CoresTo execute your test suite concurrently, use the -n flag followed by the number of workers you want to spin up (or use -n auto to utilize all available processor cores automatically):
+# Run using 2 dedicated workers
+pytest -v -s tests/test_environment_routing.py --env=testing -n 2

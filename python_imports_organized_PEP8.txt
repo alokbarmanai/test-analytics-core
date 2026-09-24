@@ -1,0 +1,12 @@
+1. The Grouping Rule (The 3-Block Order)
+You should split your imports into three distinct groups, separated by a single blank line. Order them from most generic to most specific:
+1. Standard Library Imports: Modules built directly into Python (e.g., os, sys, json, math).
+2. Third-Party Imports: Modules installed via pip into your virtual environment (e.g., pytest, fastapi, pandas).
+3. Local/Application Imports: Code specific to your actual project (e.g., your src.analytics modules).
+2. The Internal Alphabetical RuleWithin each of those 3 blocks, imports should be sorted alphabetically.
+3. Combining Imports from the Same Module
+Instead of writing separate lines for imports coming from the exact same file path, group them together on a single line using a comma.
+
+You don't have to sort these manually! VS Code has a built-in feature to format your imports instantly:
+Click anywhere in your file and press Shift + Alt + O (Windows/Linux) or Option + Shift + O (Mac).
+This runs "Organize Imports", which automatically merges duplicates, sorts alphabetically, and structures the groups perfectly.
