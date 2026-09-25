@@ -23,15 +23,13 @@ jobs:
         docker build -t test-analytics-service:github-ci .
 
     # Step 3: Spin up the container and execute the verification suite cleanly
-    # Update your test execution step to generate the report file
     - name: Run Pytest Suite inside Container
       run: |
         docker run --rm -v ${{ github.workspace }}:/app/artifacts test-analytics-service:github-ci python -m pytest --html=/app/artifacts/report.html --self-contained-html
 
-    # Add this new step right at the bottom of your file layout
+    # Step 4: Capture the generated HTML file and upload it to the dashboard summary
     - name: Upload Test Report Artifact
-      uses: actions/artifacts/upload-artifact@v4
+      uses: actions/upload-artifact@v4
       with:
         name: pytest-execution-report
         path: report.html
-
