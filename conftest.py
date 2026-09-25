@@ -2,6 +2,7 @@
 import pytest
 from pytest_metadata.plugin import metadata_key
 from tests.config_factory import ENV_CONFIGS
+from pytest_html import extras
 
 
 def pytest_addoption(parser):
@@ -66,3 +67,40 @@ def pytest_sessionfinish(session, exitstatus):
     if metadata_key in session.config.stash:
         session.config.stash[metadata_key]["Target Environment"] = active_env.upper()
         session.config.stash[metadata_key]["Automation Lead"] = "Alok Barman"
+
+
+# conftest.py (continued)
+
+
+@pytest.hookimpl(hookwrapper=True)
+def pytest_runtest_makereport(item, call):
+    """
+    Lifecycle hook executed after setup, call, and teardown of each test.
+    Intercepts failures and prepares custom artifact data.
+    """
+    # 1. Allow the test phase to execute and capture the outcome report
+    outcome = yield
+    report = outcome.get_result()
+
+    # 2. We only care about errors that happen during the actual test execution phase ('call')
+    if report.when == "call" and report.failed:
+        # In a real-world scenario, you can grab contextual logs or client data from your test fixture
+        # For this example, we will simulate embedding a raw API JSON error payload
+        failed_api_payload = (
+            "{\n"
+            '  "error": "Internal Database Constraint Violation",\n'
+            '  "status_code": 500,\n'
+            f'  "failed_at_endpoint": "{item.name}",\n'
+            '  "remediation": "Check DB foreign key relations."\n'
+            "}"
+        )
+
+        # 3. Create a clean, scrollable code block snippet using pytest-html extras
+        html_code_block = extras.text(
+            failed_api_payload, name="Captured API Error Response"
+        )
+
+        # 4. Attach the artifact directly into the test case's report data list
+        if not hasattr(report, "extras"):
+            report.extras = []
+        report.extras.append(html_code_block)

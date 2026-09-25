@@ -1,0 +1,28 @@
+name: Test Analytics Core CI Pipeline
+
+# 1. Trigger the pipeline automatically on any push to the main branch
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build-and-test:
+    # Use a clean, isolated official Ubuntu Linux runner machine
+    runs-on: ubuntu-latest
+
+    steps:
+    # Step 1: Download your source code files from GitHub onto the runner machine
+    - name: Checkout repository code
+      uses: actions/checkout@v4
+
+    # Step 2: Compile your isolated Docker image matching your local setup
+    - name: Build Docker Image
+      run: |
+        docker build -t test-analytics-service:github-ci .
+
+    # Step 3: Spin up the container and execute the verification suite cleanly
+    - name: Run Pytest Suite inside Container
+      run: |
+        docker run --rm test-analytics-service:github-ci python -m pytest

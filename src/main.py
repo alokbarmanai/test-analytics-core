@@ -46,7 +46,7 @@ async def create_analytics(
 ) -> dict[str, Any]:
 
     # Convert the Pydantic objects back to a list of dicts for your calculator
-    raw_payload = [item.dict() for item in payload]
+    raw_payload = [item.model_dump() for item in payload]
 
     # 1. Compute metrics first
     metrics = calculate_metrics(raw_payload)

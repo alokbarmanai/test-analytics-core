@@ -10,11 +10,12 @@ COPY requirements.txt .
 # Install dependencies directly into the container system layout
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Copy the rest of your application source code into the container
-COPY src/ ./src/
+# Copy the entire project root layout into the container workdir
+COPY . .
 
 # Expose port 8000 to allow traffic to flow to your FastAPI server
 EXPOSE 8000
 
 # Command to launch the Uvicorn application server inside the container
 CMD ["uvicorn", "src.main:app", "--host", "0.0.0.0", "--port", "8000"]
+
